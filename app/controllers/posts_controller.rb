@@ -6,8 +6,6 @@ class PostsController < ApplicationController
         post.title = "Spam"
       end
     end
-    @first = Post.first
-    @first.title = "Spam"
   end
 
   def show
