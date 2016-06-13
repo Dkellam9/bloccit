@@ -7,6 +7,16 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'random_data'
 
+# create topics
+15.times do
+  Topic.create!(
+    name: RandomData.random_sentence,
+    description: RandomData.random_paragraph
+    )
+end
+topics = Topic.all
+
+# create posts
 50.times do
   Post.create!(
     title: RandomData.random_sentence,
@@ -15,6 +25,7 @@ require 'random_data'
 end
 posts = Post.all
 
+# create comments
 100.times do
   Comment.create!(
     post: posts.sample,
@@ -23,5 +34,6 @@ posts = Post.all
 end
 
 puts "Seed finished"
+puts "#{Topic.count} topics created"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
