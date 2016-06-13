@@ -7,6 +7,15 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'random_data'
 
+# create sponsored posts
+5.times do
+  SponsoredPost.create!(
+    title: RandomData.random_sentence,
+    body: RandomData.random_paragraph,
+    price: 99
+    )
+end
+
 # create topics
 15.times do
   Topic.create!(
@@ -34,6 +43,7 @@ posts = Post.all
 end
 
 puts "Seed finished"
+puts "#{SponsoredPost.count} sponsored posts created"
 puts "#{Topic.count} topics created"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"

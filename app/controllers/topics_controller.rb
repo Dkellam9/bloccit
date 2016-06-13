@@ -9,7 +9,7 @@ class TopicsController < ApplicationController
   
   def new
      @topic = Topic.new
-  end  
+  end
   
   def create
      @topic = Topic.new
