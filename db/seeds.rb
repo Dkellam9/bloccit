@@ -7,6 +7,14 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'random_data'
 
+25.times do
+  Advertisement.create!(
+    title: RandomData.random_sentence,
+    copy: RandomData.random_paragraph,
+    price: 99
+    )
+end
+
 50.times do
   Post.create!(
     title: RandomData.random_sentence,
@@ -23,5 +31,6 @@ posts = Post.all
 end
 
 puts "Seed finished"
+puts "#{Advertisement.count} advertisements created"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
