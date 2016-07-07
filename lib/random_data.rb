@@ -14,6 +14,7 @@ module RandomData
     rand(4..6).times do
       sentences << random_sentence
     end
+    sentences
   end
   
   def self.random_sentence
