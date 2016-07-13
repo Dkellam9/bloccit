@@ -31,7 +31,8 @@ topics = Topic.all
   Post.create!(
     user:   users.sample,
     title: RandomData.random_sentence,
-    body: RandomData.random_paragraph
+    body: RandomData.random_paragraph,
+    topic: topics.sample
     )
 end
 posts = Post.all
