@@ -11,10 +11,6 @@ class TopicsController < ApplicationController
      @topic = Topic.new
   end
   
-  def new_sponsoredpost
-     @sponsoredpost = SponsoredPost.new
-  end
-  
   def create
      @topic = Topic.new
      @topic.name = params[:topic][:name]
