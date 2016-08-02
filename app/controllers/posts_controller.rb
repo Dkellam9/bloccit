@@ -29,15 +29,15 @@ class PostsController < ApplicationController
   
   def update
     @post = Post.find(params[:id])
-     @post.title = params[:post][:title]
-     @post.body = params[:post][:body]
-     if @post.save
-       flash[:notice] = "Post was updated successfully."
-       redirect_to [@post.topic, @post]
-     else
-       flash.now[:alert] = "There was an error saving the post. Please try again."
-       render :edit
-     end
+    @post.title = params[:post][:title]
+    @post.body = params[:post][:body]
+    if @post.save
+      flash[:notice] = "Post was updated successfully."
+      redirect_to [@post.topic, @post]
+    else
+      flash.now[:alert] = "There was an error saving the post. Please try again."
+      render :edit
+    end
   end
   
   def destroy
