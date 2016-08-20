@@ -8,7 +8,7 @@ class PostsController < ApplicationController
 
   def new
     @topic = Topic.find(params[:topic_id])
-    @posts = Post.new
+    @post = Post.new
   end
   
   def create
@@ -69,7 +69,7 @@ class PostsController < ApplicationController
     params.require(:post).permit(:title, :body)
   end
   
-  def authorize_admin
+  def authorize_user
      post = Post.find(params[:id])
      unless current_user == post.user || current_user.admin?
        flash[:alert] = "You must be an admin to do that."
