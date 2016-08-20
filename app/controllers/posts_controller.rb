@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :require_sign_in, except: :show
-  before_action :authorize_user, except: [:show, :new, :create]
+  before_action :authorize_user, except: [:show, :new, :create, :edit, :update]
   
   def show
     @post = Post.find(params[:id])
@@ -8,13 +8,22 @@ class PostsController < ApplicationController
 
   def new
     @topic = Topic.find(params[:topic_id])
-    @posts = Post.new
+    @post = Post.new
   end
   
   def create
-    @topic = Topic.find(params[:topic_id])
-    @post = @topic.posts.build(post_params)
-    @post.user = current_user
+    if current_user.member? || current_user.moderator? || current_user.admin?
+    then
+      @post = Post.new
+      @post.title = params[:post][:title]
+      @post.body = params[:post][:body]
+      @topic = Topic.find(params[:topic_id])
+      @post.topic = @topic
+      
+      @post.user = current_user
+    else
+      "You must be a member to do that."
+    end
     
     if @post.save
       flash[:notice] = "Post was saved successfully."
@@ -26,12 +35,24 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
+    post = Post.find(params[:id])
+    if current_user == post.user || current_user.moderator? || current_user.admin?
+    then @post = Post.find(params[:id])
+    else
+      "You need to be OP or an Admin or Moderator to do that."
+    end
   end
   
   def update
-    @post = Post.find(params[:id])
-    @post.assign_attributes(post_params)
+    post = Post.find(params[:id])
+    if current_user == post.user || current_user.moderator? || current_user.admin?
+    then
+      @post = Post.find(params[:id])
+      @post.title = params[:post][:title]
+      @post.body = params[:post][:body]
+    else
+      "You need to be OP or an Admin or Moderator to do that."
+    end
      
     if @post.save
       flash[:notice] = "Post was updated successfully."

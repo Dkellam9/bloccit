@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
   before_action :require_sign_in, except: [:index, :show]
-  before_action :authorize_user, except: [:index, :show]
+  before_action :authorize_user, except: [:index, :show, :edit, :update]
   
   def index
     @topics = Topic.all
@@ -27,15 +27,21 @@ class TopicsController < ApplicationController
   end
   
   def edit
-     @topic = Topic.find(params[:id])
+    if current_user.moderator? || current_user.admin?
+    then @topic = Topic.find(params[:id])
+    else
+      "You need to be a moderator or an admin to do that."
+    end
   end
   
   def update
-    @topic = Topic.find(params[:id])
- 
-    @topic.name = params[:topic][:name]
-    @topic.description = params[:topic][:description]
-    @topic.public = params[:topic][:public]
+    if current_user.moderator? || current_user.admin?
+    then
+      @topic = Topic.find(params[:id])
+      @topic.assign_attributes(topic_params)
+    else
+      "You need to be a moderator or an admin to do that."
+    end
  
     if @topic.save
       flash[:notice] = "Topic was updated successfully."
