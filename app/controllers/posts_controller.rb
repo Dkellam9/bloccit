@@ -8,12 +8,16 @@ class PostsController < ApplicationController
 
   def new
     @topic = Topic.find(params[:topic_id])
-    @posts = Post.new
+    @post = Post.new
   end
   
   def create
+    @post = Post.new
+    @post.title = params[:post][:title]
+    @post.body = params[:post][:body]
     @topic = Topic.find(params[:topic_id])
-    @post = @topic.posts.build(post_params)
+    @post.topic = @topic
+    
     @post.user = current_user
     
     if @post.save
@@ -32,7 +36,8 @@ class PostsController < ApplicationController
   
   def update
     @post = Post.find(params[:id])
-    @post.assign_attributes(post_params)
+    @post.title = params[:post][:title]
+    @post.body = params[:post][:body]
      
     if @post.save
       @post.labels = Label.update_labels(params[:post][:labels])

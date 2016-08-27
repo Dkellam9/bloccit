@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :topics do
     resources :posts, except: [:index]
-# comments for topics ???
+# comments for topics, fairly confident
     resources :comments, only: [:create, :destroy]
   end
   
