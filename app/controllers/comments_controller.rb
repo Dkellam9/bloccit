@@ -45,13 +45,14 @@ class CommentsController < ApplicationController
     else params[:topic_id]
       @topic = Topic.find(params[:topic_id])
       comment = @topic.comments.find(params[:id])
-      
+# Rails.logger.info "************************************"
+# Rails.logger.info "topic destroy"
       if comment.destroy
         flash[:notice] = "Comment was deleted successfully."
-        redirect_to [@topic]
+        redirect_to topic_path(@topic)
       else
         flash[:alert] = "Comment couldn't be deleted. Try again."
-        redirect_to [@topic]
+        redirect_to topic_path(@topic)
       end
     end
   end

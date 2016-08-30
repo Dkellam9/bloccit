@@ -18,7 +18,7 @@ RSpec.describe CommentsController, type: :controller do
     
     describe "TOPIC comment create" do
       it "redirects the user to the sign in view" do
-        topic :create, topic_id: my_topic.id, comment: {body: RandomData.random_paragraph}
+        post :create, topic_id: my_topic.id, comment: {body: RandomData.random_paragraph}
         expect(response).to redirect_to(new_session_path)
       end
     end
@@ -56,12 +56,12 @@ RSpec.describe CommentsController, type: :controller do
     
     describe "TOPIC comment create" do
       it "increases the number of topic comments by 1" do
-        expect{ topic :create, topic_id: my_topic.id, comment: {body: RandomData.random_sentence} }.to change(Comment,:count).by(1)
+        expect{ post :create, topic_id: my_topic.id, comment: {body: RandomData.random_sentence} }.to change(Comment,:count).by(1)
       end
  
       it "redirects to the topics show view" do
-        topic :create, topic_id: my_topic.id, comment: {body: RandomData.random_sentence}
-        expect(response).to redirect_to [my_topic]
+        post :create, topic_id: my_topic.id, comment: {body: RandomData.random_sentence}
+        expect(response).to redirect_to topic_path(my_topic)
       end
     end
  
@@ -75,7 +75,7 @@ RSpec.describe CommentsController, type: :controller do
     describe "topic comment DELETE destroy" do
       it "redirects the user to the topics show view" do
         delete :destroy, topic_id: my_topic.id, id: my_comment.id
-        expect(response).to redirect_to([my_topic])
+        expect(response).to redirect_to topic_path(my_topic)
       end
     end
   end
@@ -98,12 +98,12 @@ RSpec.describe CommentsController, type: :controller do
     
     describe "TOPIC comment create" do
       it "increases the number of comments by 1" do
-        expect{ topic :create, topic_id: my_topic.id, comment: {body: RandomData.random_sentence} }.to change(Comment,:count).by(1)
+        expect{ post :create, topic_id: my_topic.id, comment: {body: RandomData.random_sentence} }.to change(Comment,:count).by(1)
       end
  
       it "redirects to the topics show view" do
-        topic :create, topic_id: my_topic.id, comment: {body: RandomData.random_sentence}
-        expect(response).to redirect_to [my_topic]
+        post :create, topic_id: my_topic.id, comment: {body: RandomData.random_sentence}
+        expect(response).to redirect_to topic_path(my_topic)
       end
     end
  
@@ -129,7 +129,7 @@ RSpec.describe CommentsController, type: :controller do
  
       it "redirects to the topics show view" do
         delete :destroy, topic_id: my_topic.id, id: my_comment.id
-        expect(response).to redirect_to [my_topic]
+        expect(response).to redirect_to topic_path(my_topic)
       end
     end
   end
@@ -153,12 +153,12 @@ RSpec.describe CommentsController, type: :controller do
     
     describe "TOPIC comment create" do
       it "increases the number of comments by 1" do
-        expect{ topic :create, topic_id: my_topic.id, comment: {body: RandomData.random_sentence} }.to change(Comment,:count).by(1)
+        expect{ post :create, topic_id: my_topic.id, comment: {body: RandomData.random_sentence} }.to change(Comment,:count).by(1)
       end
  
       it "redirects to the topics show view" do
-        topic :create, topic_id: my_topic.id, comment: {body: RandomData.random_sentence}
-        expect(response).to redirect_to [my_topic]
+        post :create, topic_id: my_topic.id, comment: {body: RandomData.random_sentence}
+        expect(response).to redirect_to topic_path(my_topic)
       end
     end
  
@@ -184,7 +184,7 @@ RSpec.describe CommentsController, type: :controller do
  
       it "redirects to the topics show view" do
         delete :destroy, topic_id: my_topic.id, id: my_comment.id
-        expect(response).to redirect_to [my_topic]
+        expect(response).to redirect_to topic_path(my_topic)
       end
     end
   end
