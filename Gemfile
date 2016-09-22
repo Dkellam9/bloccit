@@ -33,3 +33,5 @@ source 'https://rubygems.org'
  
  # Used for encrypting User passwords
  gem 'bcrypt'
+ 
+ gem 'figaro', '1.0'
